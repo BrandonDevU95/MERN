@@ -1,0 +1,9 @@
+{
+  "name": "Backend",
+  "version": "0.0.1",
+  "description": "Backend for web ",
+  "main": "index.js",
+  "repository": "https://github.com/BrandonDevU95/MERN.git",
+  "author": "Brandon Vargas",
+  "license": "MIT"
+}
