@@ -1,19 +1,19 @@
 import React from 'react';
-import { DatePicker } from 'antd';
-import './App.scss';
+import Admin from './Pages/Admin'
+import SingIn from './Pages/Admin/SignIn.jsx'
+import Home from './Pages/Admin/Home.jsx'
+import Contact from './Pages/Contact.jsx'
 
 function App() {
   return (
-    <div className="app">
-      <h1>Web Personal</h1>
-      <h2>Web personal</h2>
-      <DatePicker onChange={onChange} />
+    <div>
+      <h1>Estamo en App.js</h1>
+      <Admin/>
+      <SingIn/>
+      <Home/>
+      <Contact/>
     </div>
   );
 }
 
 export default App;
-
-function onChange(date, dateString) {
-  console.log(date, dateString);
-}
