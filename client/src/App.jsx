@@ -6,13 +6,13 @@ import Contact from './Pages/Contact.jsx'
 
 function App() {
   return (
-    <div>
-      <h1>Estamo en App.js</h1>
-      <Admin/>
-      <SingIn/>
-      <Home/>
-      <Contact/>
-    </div>
+	 <div>
+		<h1>Estamo en App.js</h1>
+		<Admin/>
+		<SingIn/>
+		<Home/>
+		<Contact/>
+	 </div>
   );
 }
 
