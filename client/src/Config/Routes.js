@@ -4,7 +4,7 @@ import _Admin from '../Layout/_Admin';
 import AdminHome from '../Pages/Admin';
 import AdminSinIn from '../Pages/Admin/SignIn';
 
-const Routes = [
+const routes = [
 	{
 		path: '/',
 		component: _Admin,
@@ -24,4 +24,4 @@ const Routes = [
 	},
 ];
 
-export default Routes;
+export default routes;
