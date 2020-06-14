@@ -9,13 +9,15 @@ const _Admin = (props) => {
 
 	return (
 		<Layout>
-			<h2>Menu Slider Admin</h2>
-			<Layout>
-				<Header>Header...</Header>
-				<Content>
+			{/* TODO: Menu Slider*/}
+			<Layout className='layout-admin'>
+				<Header className='layout-admin__header '>
+					{/* TODO: Menu Top */}
+				</Header>
+				<Content className='layout-admin__content'>
 					<LoadRoutes routes={routes} />
 				</Content>
-				<Footer>Brandon Vargas </Footer>
+				<Footer className='layout-admin__footer'>Brandon Vargas </Footer>
 			</Layout>
 		</Layout>
 	);
