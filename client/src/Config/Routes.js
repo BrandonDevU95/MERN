@@ -9,6 +9,9 @@ import AdminSinIn from '../Pages/Admin/SignIn';
 import Home from '../Pages/Home';
 import Contact from '../Pages/Contact';
 
+//Other  Pages
+import Error404 from '../Pages/Error404'
+
 const routes = [
 	{
 		path: '/admin',
@@ -25,6 +28,9 @@ const routes = [
 				component: AdminSinIn,
 				exact: true,
 			},
+			{
+				component: Error404
+			}
 		],
 	},
 	{
@@ -42,6 +48,9 @@ const routes = [
 				component: Contact,
 				exact: true,
 			},
+			{
+				component: Error404
+			} 
 		],
 	},
 ];

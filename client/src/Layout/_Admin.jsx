@@ -1,13 +1,11 @@
 import React from 'react';
 import { Layout } from 'antd';
-import {Route} from 'react-router-dom'
-import './_Admin.scss'
+import { Route, Switch } from 'react-router-dom';
+import './_Admin.scss';
 
 const _Admin = (props) => {
-
-	const {routes} = props
-	const {Header, Content, Footer} = Layout;
-
+	const { routes } = props;
+	const { Header, Content, Footer } = Layout;
 
 	return (
 		<Layout>
@@ -15,19 +13,27 @@ const _Admin = (props) => {
 			<Layout>
 				<Header>Header...</Header>
 				<Content>
-					<LoadRoutes routes={routes}/>
+					<LoadRoutes routes={routes} />
 				</Content>
-				<Footer>Brandon Vargas </Footer> 
+				<Footer>Brandon Vargas </Footer>
 			</Layout>
 		</Layout>
 	);
 };
 
-function LoadRoutes ({routes}) {
-
-	return routes.map((route, index) => (
-		<Route key={index} path={route.path} exact={route.exact} component={route.component} />
-	))
+function LoadRoutes({ routes }) {
+	return (
+		<Switch>
+			{routes.map((route, index) => (
+				<Route
+					key={index}
+					path={route.path}
+					exact={route.exact}
+					component={route.component}
+				/> 
+			))}
+		</Switch>
+	);
 }
 
 export default _Admin;
