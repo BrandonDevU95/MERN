@@ -2,6 +2,8 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import './_Admin.scss';
+import MenuTop from '../Components/Admin/MenuTop';
+import MenuSider from '../Components/Admin/MenuSider'
 
 const _Admin = (props) => {
 	const { routes } = props;
@@ -9,10 +11,10 @@ const _Admin = (props) => {
 
 	return (
 		<Layout>
-			{/* TODO: Menu Slider*/}
+			<MenuSider />
 			<Layout className='layout-admin'>
 				<Header className='layout-admin__header '>
-					{/* TODO: Menu Top */}
+					<MenuTop />
 				</Header>
 				<Content className='layout-admin__content'>
 					<LoadRoutes routes={routes} />
@@ -32,7 +34,7 @@ function LoadRoutes({ routes }) {
 					path={route.path}
 					exact={route.exact}
 					component={route.component}
-				/> 
+				/>
 			))}
 		</Switch>
 	);
