@@ -6,6 +6,7 @@ import {
 	minLengthValidation,
 } from '../../../Utils/formValidation';
 import './RegisterForm.scss';
+import { signUpApi } from '../../../API/user';
 
 const RegisterForm = () => {
 	const [inputs, setInputs] = useState({
@@ -78,7 +79,7 @@ const RegisterForm = () => {
 					message: 'La contraseña no es igual',
 				});
 			} else {
-				// TODO: Registrar Usuario 
+				const result = signUpApi(inputs)
 			}
 		}
 	};
