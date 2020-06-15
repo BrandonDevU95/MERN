@@ -2,6 +2,7 @@ import React from 'react'
 import {Layout,Tabs} from 'antd'
 import {Redirect} from 'react-router-dom'
 import Logo from '../../../Assets/img/png/muvalogo_clean.png'
+import RegisterForm from '../../../Components/Admin/RegisterForm'
 import './SignIn.scss'
 
 const SignIn = () => {
@@ -21,7 +22,7 @@ const SignIn = () => {
 							Componente Login
 						</TabPane>
 						<TabPane tab={<span>Nuevo Usuario</span>} key='2' >
-							Componenete Register Form
+							<RegisterForm />
 						</TabPane>
 					</Tabs>
 				</div>
