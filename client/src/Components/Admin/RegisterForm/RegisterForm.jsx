@@ -12,7 +12,7 @@ const RegisterForm = () => {
 					name='email'
 					placeholder='Correo electronico'
 					className='register-form__input'
-					prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+					prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} className='icon-input' />}
 				/>
 			</Form.Item>
 			<Form.Item>
@@ -21,7 +21,7 @@ const RegisterForm = () => {
 					name='password'
 					placeholder='Contraseña'
 					className='register-form__input'
-					prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+					prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} className='icon-input' />}
 				/>
 			</Form.Item>
 			<Form.Item>
@@ -30,7 +30,7 @@ const RegisterForm = () => {
 					name='repeatPassword'
 					placeholder='Repetir Contraseña'
 					className='register-form__input'
-					prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+					prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} className='icon-input' />}
 				/>
 			</Form.Item>
 			<Form.Item>
@@ -39,7 +39,7 @@ const RegisterForm = () => {
 				</Checkbox>
 			</Form.Item>
 			<Form.Item>
-				<Button htmlType='submit' className='register-form_button'>
+				<Button htmlType='submit' className='register-form__button'>
 					Crear cuenta
 				</Button>
 			</Form.Item>
