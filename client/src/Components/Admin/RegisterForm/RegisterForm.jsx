@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, notification } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {
+	emailValidation,
+	minLengthValidation,
+} from '../../../Utils/formValidation';
 import './RegisterForm.scss';
 
 const RegisterForm = () => {
@@ -8,6 +12,13 @@ const RegisterForm = () => {
 		email: '',
 		password: '',
 		repeatPassword: '',
+		privacyPolicy: false,
+	});
+
+	const [formValid, setFomrValid] = useState({
+		email: false,
+		password: false,
+		repeatPassword: false,
 		privacyPolicy: false,
 	});
 
@@ -25,9 +36,33 @@ const RegisterForm = () => {
 		}
 	};
 
-	const register = e => {
-		// e.preventDefault();
-		console.log(inputs);
+	const inputValidation = (e) => {
+		const { type, name } = e.target;
+
+		if (type === 'email') {
+			setFomrValid({
+				...formValid,
+				[name]: emailValidation(e.target),
+			});
+		}
+
+		if (type === 'password') {
+			setFomrValid({
+				...formValid,
+				[name]: minLengthValidation(e.target, 6)
+			});
+		}
+
+		if (type === 'checkbox') {
+			setFomrValid({
+				...formValid,
+				[name]: e.target.checked,
+			});
+		}
+	};
+
+	const register = (e) => {		
+		console.log(formValid);
 	};
 
 	return (
@@ -44,6 +79,7 @@ const RegisterForm = () => {
 							className='icon-input'
 						/>
 					}
+					onChange={inputValidation}
 					value={inputs.email}
 				/>
 			</Form.Item>
@@ -59,6 +95,7 @@ const RegisterForm = () => {
 							className='icon-input'
 						/>
 					}
+					onChange={inputValidation}
 					value={inputs.password}
 				/>
 			</Form.Item>
@@ -74,11 +111,16 @@ const RegisterForm = () => {
 							className='icon-input'
 						/>
 					}
+					onChange={inputValidation}
 					value={inputs.repeatPassword}
 				/>
 			</Form.Item>
 			<Form.Item>
-				<Checkbox name='privacyPolicy' checked={inputs.privacyPolicy}>
+				<Checkbox
+					name='privacyPolicy'
+					onChange={inputValidation}
+					checked={inputs.privacyPolicy}
+				>
 					He leido y acepto la politica de privacidad.
 				</Checkbox>
 			</Form.Item>

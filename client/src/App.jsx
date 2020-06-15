@@ -13,8 +13,7 @@ function App() {
 	);
 }
 
-function RouteWithSubRoutes(route) {
-	console.log(route);
+function RouteWithSubRoutes(route) {	
 	return (
 		<Route
 			path={route.path}
