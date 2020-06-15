@@ -25,14 +25,15 @@ function signUp(req, res) {
 					user.password = hash;
 					user.save((err, userStored) => {
 						if (err) {
-							res.status(500).send({ message: 'Error del Servidor' });
+							res.status(500).send({ message: 'El usuario ya existe' });
 						} else {
 							if (!userStored) {
 								res.status(404).send({
 									message: 'Error al crear el usuario',
 								});
 							} else {
-								res.status(200).send({ userStored });
+								// res.status(200).send({ userStored });
+								res.status(200).send({ user :userStored })								
 							}
 						}
 					});
