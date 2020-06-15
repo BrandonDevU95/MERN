@@ -62,14 +62,19 @@ const RegisterForm = () => {
 		}
 	};
 
-	const register = async e => {		
+	const register = async (e) => {
 		const { email, password, repeatPassword, privacyPolicy } = formValid;
 		const emailVal = inputs.email;
 		const passwordVal = inputs.password;
 		const repeatPasswordVal = inputs.repeatPassword;
 		const privacyPolicyVal = inputs.privacyPolicy;
 
-		if (!emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal) {
+		if (
+			!emailVal ||
+			!passwordVal ||
+			!repeatPasswordVal ||
+			!privacyPolicyVal
+		) {
 			notification['error']({
 				message: 'Todos los campos son obligatorios',
 			});
@@ -79,18 +84,42 @@ const RegisterForm = () => {
 					message: 'La contraseña no es igual',
 				});
 			} else {
-				const result = await signUpApi(inputs)
+				const result = await signUpApi(inputs);
 				if (!result.ok) {
 					notification['error']({
-						message: result.message
-					})
+						message: result.message,
+					});
 				} else {
 					notification['success']({
-						message: result.message
-					})
+						message: result.message,
+					});
+					resetForm();
 				}
 			}
 		}
+	};
+
+	const resetForm = () => {
+		const input = document.getElementsByTagName('input');
+
+		for (let i = 0; i < input.length; i++) {
+			input[i].classList.remove('success');
+			input[i].classList.remove('error');
+		}
+
+		setInputs({
+			email: '',
+			password: '',
+			repeatPassword: '',
+			privacyPolicy: false,
+		});
+
+		setFomrValid({
+			email: false,
+			password: false,
+			repeatPassword: false,
+			privacyPolicy: false,
+		});
 	};
 
 	return (
