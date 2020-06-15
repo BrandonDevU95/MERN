@@ -49,7 +49,7 @@ const RegisterForm = () => {
 		if (type === 'password') {
 			setFomrValid({
 				...formValid,
-				[name]: minLengthValidation(e.target, 6)
+				[name]: minLengthValidation(e.target, 6),
 			});
 		}
 
@@ -61,8 +61,26 @@ const RegisterForm = () => {
 		}
 	};
 
-	const register = (e) => {		
-		console.log(formValid);
+	const register = (e) => {
+		const { email, password, repeatPassword, privacyPolicy } = formValid;
+		const emailVal = inputs.email;
+		const passwordVal = inputs.password;
+		const repeatPasswordVal = inputs.repeatPassword;
+		const privacyPolicyVal = inputs.privacyPolicy;
+
+		if (!emailVal || !passwordVal || !repeatPasswordVal || !privacyPolicyVal) {
+			notification['error']({
+				message: 'Todos los campos son obligatorios',
+			});
+		} else {
+			if (passwordVal !== repeatPasswordVal) {
+				notification['error']({
+					message: 'La contraseña no es igual',
+				});
+			} else {
+				// TODO: Registrar Usuario 
+			}
+		}
 	};
 
 	return (
