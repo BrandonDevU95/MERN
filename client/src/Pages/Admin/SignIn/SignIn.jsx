@@ -5,10 +5,15 @@ import Logo from '../../../Assets/img/png/muvalogo_clean.png';
 import RegisterForm from '../../../Components/Admin/RegisterForm';
 import './SignIn.scss';
 import LoginForm from '../../../Components/Admin/LoginForm/LoginForm';
+import { getAccessTokenApi } from '../../../API/auth';
 
 const SignIn = () => {
 	const { Content } = Layout;
 	const { TabPane } = Tabs;
+
+	if (getAccessTokenApi()) {
+		return <Redirect to='/admin' />;
+	}
 
 	return (
 		<Layout className='sign-in'>

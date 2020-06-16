@@ -14,9 +14,7 @@ const _Admin = (props) => {
 	const { Header, Content, Footer } = Layout;
 	const { user, isLoading } = useAuth();
 
-	console.log(user);
-
-	if (!user) {
+	if (!user && !isLoading) {
 		return (
 			<Fragment>
 				<Route path='/admin/login' component={AdminSignIn} />
@@ -25,26 +23,29 @@ const _Admin = (props) => {
 		);
 	}
 
-	return (
-		<Layout>
-			<MenuSider menuCollapsed={menuCollapsed} />
-			<Layout
-				className='layout-admin'
-				style={{ marginLeft: menuCollapsed ? '80px' : '200px' }}
-			>
-				<Header className='layout-admin__header '>
-					<MenuTop
-						menuCollapsed={menuCollapsed}
-						setMenuCollapsed={setMenuCollapsed}
-					/>
-				</Header>
-				<Content className='layout-admin__content'>
-					<LoadRoutes routes={routes} />
-				</Content>
-				<Footer className='layout-admin__footer'>Brandon Vargas </Footer>
+	if (user && !isLoading) {
+		return (
+			<Layout>
+				<MenuSider menuCollapsed={menuCollapsed} />
+				<Layout
+					className='layout-admin'
+					style={{ marginLeft: menuCollapsed ? '80px' : '200px' }}
+				>
+					<Header className='layout-admin__header '>
+						<MenuTop
+							menuCollapsed={menuCollapsed}
+							setMenuCollapsed={setMenuCollapsed}
+						/>
+					</Header>
+					<Content className='layout-admin__content'>
+						<LoadRoutes routes={routes} />
+					</Content>
+					<Footer className='layout-admin__footer'>Brandon Vargas </Footer>
+				</Layout>
 			</Layout>
-		</Layout>
-	);
+		);
+	}
+	return null;
 };
 
 function LoadRoutes({ routes }) {

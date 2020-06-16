@@ -4,7 +4,7 @@ export function minLengthValidation(inputData, minLength) {
 
 	removeClassErrorSucccess(inputData);
 
-	if ( valueInput.length >= minLength) {
+	if (valueInput.length >= minLength) {
 		inputData.classList.add('success');
 		return true;
 	} else {
@@ -14,6 +14,7 @@ export function minLengthValidation(inputData, minLength) {
 }
 
 export function emailValidation(inputData) {
+	/* eslint-disable */
 	const emailValid = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	const { value } = inputData;
 
