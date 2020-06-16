@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, notification } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, WindowsFilled } from '@ant-design/icons';
 import './LoginForm.scss';
 import { signInApi } from '../../../API/user';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../../Utils/constants';
 
 const LoginForm = () => {
 	const [inputs, setInputs] = useState({
@@ -17,8 +18,22 @@ const LoginForm = () => {
 		});
 	};
 
-	const login = () => {
-		signInApi(inputs);
+	const login = async (e) => {
+		const result = await signInApi(inputs);
+
+		if (result.message) {
+			notification['error']({
+				message: result.message,
+			});
+		} else {
+			const { accessToken, refreshToken } = result;
+			localStorage.setItem(ACCESS_TOKEN, accessToken);
+			localStorage.setItem(REFRESH_TOKEN, refreshToken);
+			notification['success']({
+				message: 'Login correcto',
+			});
+			window.location.href = '/admin';
+		}
 	};
 
 	return (
