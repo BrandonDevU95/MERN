@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './LoginForm.scss';
+import { signInApi } from '../../../API/user';
 
 const LoginForm = () => {
 	const [inputs, setInputs] = useState({
@@ -17,7 +18,7 @@ const LoginForm = () => {
 	};
 
 	const login = () => {
-		console.log(inputs);
+		signInApi(inputs);
 	};
 
 	return (
