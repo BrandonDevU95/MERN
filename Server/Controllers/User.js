@@ -54,22 +54,28 @@ function signIn(req, res) {
 			res.status(500).send({ message: 'Error en el servisor' });
 		} else {
 			if (!userStored) {
-				res.status(400).send({ message: 'Usuario no encontrado' });
+				res.status(404).send({ message: 'Usuario no encontrado' });
 			} else {
 				bcrypt.compare(password, userStored.password, (err, check) => {
 					if (err) {
 						res.status(500).send({ message: 'Error en el servidor' });
 					} else {
-						if (!userStored.active) {
-							res.status(200).send({
-								code: 200,
-								message: 'El usuario no esta activo',
+						if (!check) {
+							res.status(404).send({
+								message: 'La contraseña es incorrecta',
 							});
 						} else {
-							res.status(200).send({
-								accessToken: jwt.createAccesstoken(userStored),
-								refreshToken: jwt.createRefreshToken(userStored),
-							});
+							if (!userStored.active) {
+								res.status(200).send({
+									code: 200,
+									message: 'El usuario no esta activo',
+								});
+							} else {
+								res.status(200).send({
+									accessToken: jwt.createAccesstoken(userStored),
+									refreshToken: jwt.createRefreshToken(userStored),
+								});
+							}
 						}
 					}
 				});
