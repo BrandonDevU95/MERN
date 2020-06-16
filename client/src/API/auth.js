@@ -44,7 +44,7 @@ export function refreshAccessToken(refreshToken) {
 		})
 		.then((result) => {
 			if (!result) {
-				// TODO: desloguear usuario
+				logout();
 			} else {
 				const { accessToken, refreshToken } = result;
 				localStorage.setItem(ACCESS_TOKEN, accessToken);
@@ -53,6 +53,10 @@ export function refreshAccessToken(refreshToken) {
 		});
 }
 
+export function logout() {
+	localStorage.removeItem(ACCESS_TOKEN);
+	localStorage.removeItem(REFRESH_TOKEN);
+}
 function willExpireToken(token) {
 	const seconds = 60;
 	const metaToken = jwtDecode(token);
