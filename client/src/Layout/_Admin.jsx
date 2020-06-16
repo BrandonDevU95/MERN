@@ -3,8 +3,9 @@ import { Layout } from 'antd';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './_Admin.scss';
 import MenuTop from '../Components/Admin/MenuTop';
-import AdminSignIn from '../Pages/Admin/SignIn/SignIn.jsx'
+import AdminSignIn from '../Pages/Admin/SignIn/SignIn.jsx';
 import MenuSider from '../Components/Admin/MenuSider';
+import { getAccessToken, getRefreshToken } from '../API/auth';
 
 const _Admin = (props) => {
 	const { routes } = props;
@@ -13,15 +14,19 @@ const _Admin = (props) => {
 	const { Header, Content, Footer } = Layout;
 
 	const user = null;
+	const token = getAccessToken();
+	console.log(token);
+
+	const refresh = getRefreshToken();
+	console.log(refresh);
 
 	if (!user) {
-		return(
-		<Fragment>
-			
-				<Route path='/admin/login' component={AdminSignIn}/>
+		return (
+			<Fragment>
+				<Route path='/admin/login' component={AdminSignIn} />
 				<Redirect to='/admin/login' />
-		</Fragment>			
-		)
+			</Fragment>
+		);
 	}
 
 	return (
