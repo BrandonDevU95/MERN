@@ -5,20 +5,16 @@ import './_Admin.scss';
 import MenuTop from '../Components/Admin/MenuTop';
 import AdminSignIn from '../Pages/Admin/SignIn/SignIn.jsx';
 import MenuSider from '../Components/Admin/MenuSider';
-import { getAccessToken, getRefreshToken } from '../API/auth';
+import useAuth from '../Hooks/useAuth';
 
 const _Admin = (props) => {
 	const { routes } = props;
 
 	const [menuCollapsed, setMenuCollapsed] = useState(false);
 	const { Header, Content, Footer } = Layout;
+	const { user, isLoading } = useAuth;
 
 	const user = null;
-	const token = getAccessToken();
-	console.log(token);
-
-	const refresh = getRefreshToken();
-	console.log(refresh);
 
 	if (!user) {
 		return (

@@ -22,7 +22,7 @@ export function getRefreshTokenApi() {
 	return willExpireToken(refreshToken) ? null : refreshToken;
 }
 
-export function refreshAccessToken(refreshToken) {
+export function refreshAccessTokenApi(refreshToken) {
 	const url = `${basePath}/${apiVersion}/refreshAccessToken`;
 	const bodyobj = {
 		refreshToken,
@@ -35,7 +35,7 @@ export function refreshAccessToken(refreshToken) {
 		},
 	};
 
-	fetsh(url, params)
+	fetch(url, params)
 		.then((response) => {
 			if (response.status !== 200) {
 				return null;
@@ -48,7 +48,7 @@ export function refreshAccessToken(refreshToken) {
 			} else {
 				const { accessToken, refreshToken } = result;
 				localStorage.setItem(ACCESS_TOKEN, accessToken);
-				localStorage.setItem(REFRESH_TOKEN, refreshAccessToken);
+				localStorage.setItem(REFRESH_TOKEN, refreshToken);
 			}
 		});
 }
