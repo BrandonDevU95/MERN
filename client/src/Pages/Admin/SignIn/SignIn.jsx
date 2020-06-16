@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Logo from '../../../Assets/img/png/muvalogo_clean.png';
 import RegisterForm from '../../../Components/Admin/RegisterForm';
 import './SignIn.scss';
+import LoginForm from '../../../Components/Admin/LoginForm/LoginForm';
 
 const SignIn = () => {
 	const { Content } = Layout;
@@ -18,7 +19,7 @@ const SignIn = () => {
 				<div className='sign-in__content-tabs'>
 					<Tabs type='card'>
 						<TabPane tab={<span>Entrar</span>} key='1'>
-							Componente Login
+							<LoginForm />
 						</TabPane>
 						<TabPane tab={<span>Nuevo Usuario</span>} key='2'>
 							<RegisterForm />
