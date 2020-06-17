@@ -84,4 +84,16 @@ function signIn(req, res) {
 	});
 }
 
-module.exports = { signUp, signIn };
+function getUsers(req, res) {
+	User.find().then((users) => {
+		if (!users) {
+			res.status(404).send({
+				message: 'No se ha encontrado ningun usuario',
+			});
+		} else {
+			res.status(200).send({ users });
+		}
+	});
+}
+
+module.exports = { signUp, signIn, getUsers };
