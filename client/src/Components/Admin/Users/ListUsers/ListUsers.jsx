@@ -10,10 +10,14 @@ import {
 } from '@ant-design/icons';
 
 import './ListUsers.scss';
+import EditUserForm from '../EditUserForm';
 
 const ListUsers = (props) => {
 	const { usersActive, usersInactive } = props;
 	const [viewUsersActive, setViewUsersActive] = useState(true);
+	const [isVisibleModal, setIsVisibleModal] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
+	const [modalContent, steModalContent] = useState(null);
 
 	return (
 		<div className='list-users'>
@@ -26,16 +30,21 @@ const ListUsers = (props) => {
 					{viewUsersActive ? 'Usuarios Activos' : 'Usuarios Inactivos'}
 				</span>
 				{viewUsersActive ? (
-					<UsersActive usersActive={usersActive} />
+					<UsersActive
+						usersActive={usersActive}
+						setIsVisibleModal={setIsVisibleModal}
+						setModalTitle={setModalTitle}
+						steModalContent={steModalContent}
+					/>
 				) : (
 					<UsersInactive usersInactive={usersInactive} />
 				)}
 				<Modal
-					title='Mi modal'
-					isVisible={true}
-					setIsVisible={() => console.log('Algo')}
+					title={modalTitle}
+					isVisible={isVisibleModal}
+					setIsVisible={setIsVisibleModal}
 				>
-					Hola este es mi primer modal
+					{modalContent}
 				</Modal>
 			</div>
 		</div>
@@ -45,7 +54,22 @@ const ListUsers = (props) => {
 export default ListUsers;
 
 function UsersActive(props) {
-	const { usersActive } = props;
+	const {
+		usersActive,
+		setIsVisibleModal,
+		setModalTitle,
+		steModalContent,
+	} = props;
+
+	const editUser = (user) => {
+		setIsVisibleModal(true);
+		setModalTitle(
+			`Editar ${user.name ? user.name : '...'} ${
+				user.lastname ? user.lastname : '...'
+			}`
+		);
+		steModalContent(<EditUserForm user={user} />);
+	};
 
 	return (
 		<List
@@ -55,10 +79,7 @@ function UsersActive(props) {
 			renderItem={(user) => (
 				<List.Item
 					actions={[
-						<Button
-							type='primary'
-							onClick={() => console.log('Editar usuario')}
-						>
+						<Button type='primary' onClick={() => editUser(user)}>
 							<EditOutlined />
 						</Button>,
 						<Button
