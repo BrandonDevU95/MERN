@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Switch, List, Avatar, Button } from 'antd';
-import {} from '@ant-design/icons';
+import {
+	EditOutlined,
+	StopOutlined,
+	DeleteOutlined,
+	CheckOutlined,
+} from '@ant-design/icons';
 import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
 
 import './ListUsers.scss';
@@ -16,7 +21,14 @@ const ListUsers = (props) => {
 					defaultChecked
 					onChange={() => setViewUsersActive(!viewUsersActive)}
 				/>
-				<span>{viewUsersActive ? <UsersActive /> : <UsersInactive />}</span>
+				<span>
+					{viewUsersActive ? 'Usuarios Activos' : 'Usuarios Inactivos'}
+				</span>
+				{viewUsersActive ? (
+					<UsersActive usersActive={usersActive} />
+				) : (
+					<UsersInactive usersInactive={usersInactive} />
+				)}
 			</div>
 		</div>
 	);
@@ -24,10 +36,85 @@ const ListUsers = (props) => {
 
 export default ListUsers;
 
-function UsersActive() {
-	return <h3>Lista de usuarios Activos</h3>;
+function UsersActive(props) {
+	const { usersActive } = props;
+
+	return (
+		<List
+			className='users-active'
+			itemLayout='horizontal'
+			dataSource={usersActive}
+			renderItem={(user) => (
+				<List.Item
+					actions={[
+						<Button
+							type='primary'
+							onClick={() => console.log('Editar usuario')}
+						>
+							<EditOutlined />
+						</Button>,
+						<Button
+							type='danger'
+							onClick={() => console.log('Desactivar Usuario')}
+						>
+							<StopOutlined />
+						</Button>,
+						<Button
+							type='danger'
+							onClick={() => console.log('Eliminar Usuario')}
+						>
+							<DeleteOutlined />
+						</Button>,
+					]}
+				>
+					<List.Item.Meta
+						avatar={<Avatar src={user.avatar ? user.avatar : NoAvatar} />}
+						title={`
+							${user.name ? user.name : '...'}
+							${user.lastname ? user.lastname : '...'}							
+						`}
+						description={user.email}
+					/>
+				</List.Item>
+			)}
+		/>
+	);
 }
 
-function UsersInactive() {
-	return <h3>Lista de usuarios Inactivos</h3>;
+function UsersInactive(props) {
+	const { usersInactive } = props;
+	return (
+		<List
+			className='users-active'
+			itemLayout='horizontal'
+			dataSource={usersInactive}
+			renderItem={(user) => (
+				<List.Item
+					actions={[
+						<Button
+							type='primary'
+							onClick={() => console.log('Activar usuario')}
+						>
+							<CheckOutlined />
+						</Button>,
+						<Button
+							type='danger'
+							onClick={() => console.log('Eliminar Usuario')}
+						>
+							<DeleteOutlined />
+						</Button>,
+					]}
+				>
+					<List.Item.Meta
+						avatar={<Avatar src={user.avatar ? user.avatar : NoAvatar} />}
+						title={`
+							${user.name ? user.name : '...'}
+							${user.lastname ? user.lastname : '...'}							
+						`}
+						description={user.email}
+					/>
+				</List.Item>
+			)}
+		/>
+	);
 }
