@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './Config/Routes';
 import AuthProvider from './Providers/AuthProvider';
+import './App.scss';
+
 function App() {
 	return (
 		<AuthProvider>
