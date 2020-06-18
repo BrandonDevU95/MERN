@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Switch, List, Avatar, Button } from 'antd';
+import Modal from '../../../Modal';
+import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
 import {
 	EditOutlined,
 	StopOutlined,
 	DeleteOutlined,
 	CheckOutlined,
 } from '@ant-design/icons';
-import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
 
 import './ListUsers.scss';
 
@@ -29,6 +30,13 @@ const ListUsers = (props) => {
 				) : (
 					<UsersInactive usersInactive={usersInactive} />
 				)}
+				<Modal
+					title='Mi modal'
+					isVisible={true}
+					setIsVisible={() => console.log('Algo')}
+				>
+					Hola este es mi primer modal
+				</Modal>
 			</div>
 		</div>
 	);
