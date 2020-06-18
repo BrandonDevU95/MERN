@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getAccessTokenApi } from '../../../API/auth';
 import { getUsersActiveApi } from '../../../API/user';
+import ListUsers from '../../../Components/Admin/Users/ListUsers';
+
 import './Users.scss';
 
 const Users = () => {
 	const [usersActive, setUsersActive] = useState([]);
 	const [usersInactive, setUsersInactive] = useState([]);
 	const token = getAccessTokenApi();
-
-	console.log(usersActive);
-	console.log(usersInactive);
 
 	useEffect(() => {
 		getUsersActiveApi(token, true).then((response) => {
@@ -20,8 +19,8 @@ const Users = () => {
 		});
 	}, [token]);
 	return (
-		<div>
-			<h1>Estamos en Users ...</h1>
+		<div className='users'>
+			<ListUsers usersActive={usersActive} usersInactive={usersInactive} />
 		</div>
 	);
 };
