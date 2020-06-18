@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Switch, List, Avatar, Button } from 'antd';
 import Modal from '../../../Modal';
 import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
+import EditUserForm from '../EditUserForm';
 import {
 	EditOutlined,
 	StopOutlined,
@@ -10,7 +11,6 @@ import {
 } from '@ant-design/icons';
 
 import './ListUsers.scss';
-import EditUserForm from '../EditUserForm';
 
 const ListUsers = (props) => {
 	const { usersActive, usersInactive } = props;
