@@ -11,7 +11,7 @@ const EditUserForm = (props) => {
 	const [avatar, setAvatar] = useState(null);
 
 	return (
-		<div>
+		<div className='edit-user-form'>
 			<UploadAvatar avatar={avatar} setAvatar={setAvatar} />
 			<h2>{user.email}</h2>
 		</div>
