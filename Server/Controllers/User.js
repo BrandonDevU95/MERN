@@ -152,7 +152,7 @@ function uploadAvatar(req, res) {
 											message: 'No se encontro usuario',
 										});
 									} else {
-										res.status(200).send({ user: userResult });
+										res.status(200).send({ avatarName: fileName });
 									}
 								}
 							}
