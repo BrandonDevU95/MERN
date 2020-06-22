@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../Services/jwt');
 const User = require('../Models/User');
+const fs = require('fs');
+const path = require('path');
 
 function signUp(req, res) {
 	const user = new User();
@@ -110,4 +112,20 @@ function getUsersActive(req, res) {
 	});
 }
 
-module.exports = { signUp, signIn, getUsers, getUsersActive };
+function uploadAvatar(req, res) {
+	const params = req.params;
+
+	User.findById({ _id: params.id }, (err, userData) => {
+		if (err) {
+			res.status(500).send({ message: 'Error del servidor.' });
+		} else {
+			if (!userData) {
+				res.status(404).send({ message: 'No se encontro usuario' });
+			} else {
+				let user = userData;
+			}
+		}
+	});
+}
+
+module.exports = { signUp, signIn, getUsers, getUsersActive, uploadAvatar };
