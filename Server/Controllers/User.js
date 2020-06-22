@@ -3,6 +3,7 @@ const path = require('path');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../Services/jwt');
 const User = require('../Models/User');
+const { exists } = require('../Models/User');
 
 function signUp(req, res) {
 	const user = new User();
@@ -164,4 +165,24 @@ function uploadAvatar(req, res) {
 	});
 }
 
-module.exports = { signUp, signIn, getUsers, getUsersActive, uploadAvatar };
+function getAvatar(req, res) {
+	const avatarName = req.params.avatarName;
+	const filePath = './uploads/avatar/' + avatarName;
+
+	fs.exists(filePath, (exists) => {
+		if (!exists) {
+			res.status(404).send({ message: 'Avatar no encontrado' });
+		} else {
+			res.sendFile(path.resolve(filePath));
+		}
+	});
+}
+
+module.exports = {
+	signUp,
+	signIn,
+	getUsers,
+	getUsersActive,
+	uploadAvatar,
+	getAvatar,
+};
