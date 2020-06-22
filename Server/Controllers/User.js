@@ -1,8 +1,8 @@
+const fs = require('fs');
+const path = require('path');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('../Services/jwt');
 const User = require('../Models/User');
-const fs = require('fs');
-const path = require('path');
 
 function signUp(req, res) {
 	const user = new User();
@@ -123,6 +123,42 @@ function uploadAvatar(req, res) {
 				res.status(404).send({ message: 'No se encontro usuario' });
 			} else {
 				let user = userData;
+
+				if (req.files) {
+					// let filePath = req.files.avatar.path;
+					let filePath = req.files.avatar.path.split('\\').join('/');
+					let fileSplit = filePath.split('/');
+					let fileName = fileSplit[2];
+					let extSplit = fileName.split('.');
+					let fileExt = extSplit[1];
+
+					if (fileExt !== 'png' && fileExt !== 'jpg') {
+						res.status(400).send({
+							message: 'Tipo de archivo no valido',
+						});
+					} else {
+						user.avatar = fileName;
+						User.findByIdAndUpdate(
+							{ _id: params.id },
+							user,
+							(err, userResult) => {
+								if (err) {
+									res.status(500).send({
+										message: 'Error del servidor',
+									});
+								} else {
+									if (!userResult) {
+										res.status(404).send({
+											message: 'No se encontro usuario',
+										});
+									} else {
+										res.status(200).send({ user: userResult });
+									}
+								}
+							}
+						);
+					}
+				}
 			}
 		}
 	});
