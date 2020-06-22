@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Avatar, Form, Input, Select, Button, Row, Col } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -16,6 +16,13 @@ const EditUserForm = (props) => {
 		role: user.role,
 		avatar: user.avatar,
 	});
+
+	useEffect(() => {
+		if (avatar) {
+			setUserData({ ...userData, avatar });
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [avatar]);
 
 	const updateUser = (e) => {
 		console.log(userData);
@@ -66,7 +73,7 @@ function UploadAvatar(props) {
 
 function EditForm(props) {
 	const { user, userData, setUserData, updateUser } = props;
-	const { option } = Select;
+	const { Option } = Select;
 
 	return (
 		<Form className='form-edit' onFinish={updateUser}>
@@ -74,7 +81,7 @@ function EditForm(props) {
 				<Col span={12}>
 					<Form.Item>
 						<Input
-							prefix={<UserOutlined />}
+							prefix={<UserOutlined className='icon-input' />}
 							placeholder='Nombre'
 							defaultValue={userData.name}
 							onChange={(e) =>
@@ -86,7 +93,7 @@ function EditForm(props) {
 				<Col span={12}>
 					<Form.Item>
 						<Input
-							prefix={<UserOutlined />}
+							prefix={<UserOutlined className='icon-input' />}
 							placeholder='Apellidos'
 							defaultValue={userData.lastname}
 							onChange={(e) =>
@@ -100,7 +107,7 @@ function EditForm(props) {
 				<Col span={12}>
 					<Form.Item>
 						<Input
-							prefix={<MailOutlined />}
+							prefix={<MailOutlined className='icon-input' />}
 							placeholder='Correo'
 							defaultValue={userData.email}
 							onChange={(e) =>
@@ -109,11 +116,48 @@ function EditForm(props) {
 						/>
 					</Form.Item>
 				</Col>
-				<Col span={12}></Col>
+				<Col span={12}>
+					<Form.Item>
+						<Select
+							placeholder='Selecciona un rol'
+							onChange={(e) => setUserData({ ...userData, role: e })}
+							defaultValue={userData.role}
+						>
+							<Option value='admin'>Administrador</Option>
+							<Option value='editor'>Editor</Option>
+							<Option value='reviewr'>Revisor</Option>
+						</Select>
+					</Form.Item>
+				</Col>
 			</Row>
 			<Row gutter={24}>
-				<Col span={12}></Col>
-				<Col span={12}></Col>
+				<Col span={12}>
+					<Form.Item>
+						<Input
+							prefix={<LockOutlined className='icon-input' />}
+							type='password'
+							placeholder='Contraseña'
+							onChange={(e) =>
+								setUserData({ ...userData, password: e.target.value })
+							}
+						/>
+					</Form.Item>
+				</Col>
+				<Col span={12}>
+					<Form.Item>
+						<Input
+							prefix={<LockOutlined className='icon-input' />}
+							type='password'
+							placeholder='Repetir Contraseña'
+							onChange={(e) =>
+								setUserData({
+									...userData,
+									repeatPassword: e.target.value,
+								})
+							}
+						/>
+					</Form.Item>
+				</Col>
 			</Row>
 			<Form.Item>
 				<Button type='primary' htmlType='submit' className='btn-submit'>
