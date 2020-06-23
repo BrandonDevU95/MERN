@@ -150,6 +150,23 @@ function UserActive(props) {
 		confirm({
 			title: 'Eliminar Usuario',
 			content: `¿Estas seguro de eliminar a ${user.email}?`,
+			okText: 'Eliminar',
+			okType: 'danger',
+			cancelText: 'Cancelar',
+			onOk() {
+				deleteUserApi(accesToken, user._id)
+					.then((response) => {
+						notification['success']({
+							message: response,
+						});
+						setReloadUsers(true);
+					})
+					.catch((err) => {
+						notification['error']({
+							message: err,
+						});
+					});
+			},
 		});
 	};
 
@@ -162,10 +179,7 @@ function UserActive(props) {
 				<Button type='danger' onClick={desactivateUser}>
 					<StopOutlined />
 				</Button>,
-				<Button
-					type='danger'
-					onClick={() => console.log('Eliminar Usuario')}
-				>
+				<Button type='danger' onClick={showDeleteConfirm}>
 					<DeleteOutlined />
 				</Button>,
 			]}
@@ -227,16 +241,39 @@ function UserInactive(props) {
 			});
 	};
 
+	const showDeleteConfirm = () => {
+		const accesToken = getAccessTokenApi();
+
+		confirm({
+			title: 'Eliminar Usuario',
+			content: `¿Estas seguro de eliminar a ${user.email}?`,
+			okText: 'Eliminar',
+			okType: 'danger',
+			cancelText: 'Cancelar',
+			onOk() {
+				deleteUserApi(accesToken, user._id)
+					.then((response) => {
+						notification['success']({
+							message: response,
+						});
+						setReloadUsers(true);
+					})
+					.catch((err) => {
+						notification['error']({
+							message: err,
+						});
+					});
+			},
+		});
+	};
+
 	return (
 		<List.Item
 			actions={[
 				<Button type='primary' onClick={activateUser}>
 					<CheckOutlined />
 				</Button>,
-				<Button
-					type='danger'
-					onClick={() => console.log('Eliminar Usuario')}
-				>
+				<Button type='danger' onClick={showDeleteConfirm}>
 					<DeleteOutlined />
 				</Button>,
 			]}
