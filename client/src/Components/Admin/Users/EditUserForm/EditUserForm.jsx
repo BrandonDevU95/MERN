@@ -62,8 +62,10 @@ const EditUserForm = (props) => {
 				notification['error']({
 					message: 'Las contraseñas deben ser iguales',
 				});
+				return;
+			} else {
+				delete userUpdate.repeatPassword;
 			}
-			return;
 		}
 
 		if (!userUpdate.name || !userUpdate.lastname || !userUpdate.email) {
