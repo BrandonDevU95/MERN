@@ -22,5 +22,6 @@ api.put(
 	[md_auth.ensureAuth],
 	UserController.activateUser
 );
+api.delete('/delete-user/:id', [md_auth.ensureAuth], UserController.deleteUser);
 
 module.exports = api;
