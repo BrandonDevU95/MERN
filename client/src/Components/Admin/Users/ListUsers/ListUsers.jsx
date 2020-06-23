@@ -1,18 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, List, Avatar, Button, notification } from 'antd';
 import Modal from '../../../Modal';
-import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
 import EditUserForm from '../EditUserForm';
-import { getAvatarApi, activateUserApi } from './../../../../API/user';
+import React, { useState, useEffect } from 'react';
 import { getAccessTokenApi } from '../../../../API/auth';
+import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
+import {
+	getAvatarApi,
+	activateUserApi,
+	deleteUserApi,
+} from './../../../../API/user';
 import {
 	EditOutlined,
 	StopOutlined,
 	DeleteOutlined,
 	CheckOutlined,
 } from '@ant-design/icons';
+import {
+	Switch,
+	List,
+	Avatar,
+	Button,
+	notification,
+	Modal as ModalAntd,
+} from 'antd';
 
 import './ListUsers.scss';
+
+const { confirm } = ModalAntd;
 
 const ListUsers = (props) => {
 	const { usersActive, usersInactive, setReloadUsers } = props;
@@ -129,6 +142,15 @@ function UserActive(props) {
 					message: err,
 				});
 			});
+	};
+
+	const showDeleteConfirm = () => {
+		const accesToken = getAccessTokenApi();
+
+		confirm({
+			title: 'Eliminar Usuario',
+			content: `¿Estas seguro de eliminar a ${user.email}?`,
+		});
 	};
 
 	return (
