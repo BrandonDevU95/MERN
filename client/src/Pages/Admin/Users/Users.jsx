@@ -20,6 +20,7 @@ const Users = () => {
 		});
 		setReloadUsers(false);
 	}, [token, reloadUsers]);
+
 	return (
 		<div className='users'>
 			<ListUsers

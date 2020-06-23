@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, List, Avatar, Button } from 'antd';
+import { Switch, List, Avatar, Button, notification } from 'antd';
 import Modal from '../../../Modal';
 import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
 import EditUserForm from '../EditUserForm';
-import { getAvatarApi } from './../../../../API/user';
+import { getAvatarApi, activateUserApi } from './../../../../API/user';
+import { getAccessTokenApi } from '../../../../API/auth';
 import {
 	EditOutlined,
 	StopOutlined,
@@ -39,7 +40,10 @@ const ListUsers = (props) => {
 						setReloadUsers={setReloadUsers}
 					/>
 				) : (
-					<UsersInactive usersInactive={usersInactive} />
+					<UsersInactive
+						usersInactive={usersInactive}
+						setReloadUsers={setReloadUsers}
+					/>
 				)}
 				<Modal
 					title={modalTitle}
@@ -85,13 +89,19 @@ function UsersActive(props) {
 			className='users-active'
 			itemLayout='horizontal'
 			dataSource={usersActive}
-			renderItem={(user) => <UserActive user={user} editUser={editUser} />}
+			renderItem={(user) => (
+				<UserActive
+					user={user}
+					editUser={editUser}
+					setReloadUsers={setReloadUsers}
+				/>
+			)}
 		/>
 	);
 }
 
 function UserActive(props) {
-	const { user, editUser } = props;
+	const { user, editUser, setReloadUsers } = props;
 	const [avatar, setAvatar] = useState(null);
 
 	useEffect(() => {
@@ -104,16 +114,30 @@ function UserActive(props) {
 		}
 	}, [user]);
 
+	const desactivateUser = () => {
+		const accesToken = getAccessTokenApi();
+
+		activateUserApi(accesToken, user._id, false)
+			.then((response) => {
+				notification['success']({
+					message: response,
+				});
+				setReloadUsers(true);
+			})
+			.catch((err) => {
+				notification['error']({
+					message: err,
+				});
+			});
+	};
+
 	return (
 		<List.Item
 			actions={[
 				<Button type='primary' onClick={() => editUser(user)}>
 					<EditOutlined />
 				</Button>,
-				<Button
-					type='danger'
-					onClick={() => console.log('Desactivar Usuario')}
-				>
+				<Button type='danger' onClick={desactivateUser}>
 					<StopOutlined />
 				</Button>,
 				<Button
@@ -137,19 +161,21 @@ function UserActive(props) {
 }
 
 function UsersInactive(props) {
-	const { usersInactive } = props;
+	const { usersInactive, setReloadUsers } = props;
 	return (
 		<List
 			className='users-active'
 			itemLayout='horizontal'
 			dataSource={usersInactive}
-			renderItem={(user) => <UserInactive user={user} />}
+			renderItem={(user) => (
+				<UserInactive user={user} setReloadUsers={setReloadUsers} />
+			)}
 		/>
 	);
 }
 
 function UserInactive(props) {
-	const { user } = props;
+	const { user, setReloadUsers } = props;
 	const [avatar, setAvatar] = useState(null);
 
 	useEffect(() => {
@@ -162,13 +188,27 @@ function UserInactive(props) {
 		}
 	}, [user]);
 
+	const activateUser = () => {
+		const accesToken = getAccessTokenApi();
+
+		activateUserApi(accesToken, user._id, true)
+			.then((response) => {
+				notification['success']({
+					message: response,
+				});
+				setReloadUsers(true);
+			})
+			.catch((err) => {
+				notification['error']({
+					message: err,
+				});
+			});
+	};
+
 	return (
 		<List.Item
 			actions={[
-				<Button
-					type='primary'
-					onClick={() => console.log('Activar usuario')}
-				>
+				<Button type='primary' onClick={activateUser}>
 					<CheckOutlined />
 				</Button>,
 				<Button

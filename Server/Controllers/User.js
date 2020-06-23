@@ -220,9 +220,9 @@ function activateUser(req, res) {
 				res.status(404).send({ message: 'No se encontro usuario' });
 			} else {
 				if (active === true) {
-					res.status(200).send({ message: 'Usuario activado' });
+					res.status(200).send({ message: 'Usuario Activado' });
 				} else {
-					res.status(200).send({ message: 'Usuario desactivado' });
+					res.status(200).send({ message: 'Usuario Desactivado' });
 				}
 			}
 		}
