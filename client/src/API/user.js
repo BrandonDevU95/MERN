@@ -161,6 +161,6 @@ export function updateUserApi(token, user, userId) {
 			return result;
 		})
 		.catch((err) => {
-			err.message;
+			return err.message;
 		});
 }
