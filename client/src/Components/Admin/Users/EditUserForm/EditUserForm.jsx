@@ -1,9 +1,23 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Avatar, Form, Input, Select, Button, Row, Col } from 'antd';
+import {
+	Avatar,
+	Form,
+	Input,
+	Select,
+	Button,
+	Row,
+	Col,
+	notification,
+} from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
-import { getAvatarApi } from '../../../../API/user';
+import {
+	getAvatarApi,
+	uploadAvatarApi,
+	updateUserApi,
+} from '../../../../API/user';
+import { getAccessTokenApi } from '../../../../API/auth';
 
 import './EditUserForm.scss';
 
@@ -40,7 +54,43 @@ const EditUserForm = (props) => {
 	}, [avatar]);
 
 	const updateUser = (e) => {
-		console.log(userData);
+		const token = getAccessTokenApi();
+		let userUpdate = userData;
+
+		if (userUpdate.password || userUpdate.repeatPassword) {
+			if (userUpdate.password !== userUpdate.repeatPassword) {
+				notification['error']({
+					message: 'Las contraseñas deben ser iguales',
+				});
+			}
+			return;
+		}
+
+		if (!userUpdate.name || !userUpdate.lastname || !userUpdate.email) {
+			notification['error']({
+				message: 'Los campos nombre, apellidos y email son obligatorios',
+			});
+			return;
+		}
+
+		if (typeof userUpdate.avatar === 'object') {
+			uploadAvatarApi(token, userUpdate.avatar, user._id).then(
+				(response) => {
+					userUpdate.avatar = response.avatarName;
+					updateUserApi(token, userUpdate, user._id).then((result) => {
+						notification['success']({
+							message: result.message,
+						});
+					});
+				}
+			);
+		} else {
+			updateUserApi(token, userUpdate, user._id).then((result) => {
+				notification['success']({
+					message: result.message,
+				});
+			});
+		}
 	};
 
 	return (

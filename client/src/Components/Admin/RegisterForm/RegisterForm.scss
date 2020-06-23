@@ -12,17 +12,17 @@
 
 	&__input {
 		padding: 0;
-		
+
 		.ant-input-prefix {
 			position: absolute;
 			height: 100%;
 			margin-left: 10px;
 			z-index: 1;
-	 
+
 			.icon-input {
-			  font-size: 0em + 22px / $defaultFontSize;			 
+				font-size: 0em + 22px / $defaultFontSize;
 			}
-		 }
+		}
 
 		input {
 			font-size: 0em + 20px / $defaultFontSize;
@@ -31,7 +31,7 @@
 				border-color: $primary-color;
 				box-shadow: none;
 			}
-		}		
+		}
 	}
 
 	&__button {
@@ -40,7 +40,7 @@
 		background-color: $primary-color;
 		color: $font-light;
 		height: 42px;
-		
+
 		&:hover {
 			background-color: $primary-color-hover;
 			color: $font-light;

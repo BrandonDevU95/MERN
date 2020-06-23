@@ -148,7 +148,7 @@ export function updateUserApi(token, user, userId) {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-			Autorization: token,
+			Authorization: token,
 		},
 		body: JSON.stringify(user),
 	};
