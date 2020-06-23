@@ -22,7 +22,7 @@ import { getAccessTokenApi } from '../../../../API/auth';
 import './EditUserForm.scss';
 
 const EditUserForm = (props) => {
-	const { user } = props;
+	const { user, setIsVisibleModal, setReloadUsers } = props;
 	const [avatar, setAvatar] = useState(null);
 	const [userData, setUserData] = useState({});
 
@@ -81,6 +81,8 @@ const EditUserForm = (props) => {
 						notification['success']({
 							message: result.message,
 						});
+						setIsVisibleModal(false);
+						setReloadUsers(true);
 					});
 				}
 			);
@@ -89,6 +91,8 @@ const EditUserForm = (props) => {
 				notification['success']({
 					message: result.message,
 				});
+				setIsVisibleModal(false);
+				setReloadUsers(true);
 			});
 		}
 	};

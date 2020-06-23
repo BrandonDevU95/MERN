@@ -14,7 +14,7 @@ import {
 import './ListUsers.scss';
 
 const ListUsers = (props) => {
-	const { usersActive, usersInactive } = props;
+	const { usersActive, usersInactive, setReloadUsers } = props;
 	const [viewUsersActive, setViewUsersActive] = useState(true);
 	const [isVisibleModal, setIsVisibleModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
@@ -36,6 +36,7 @@ const ListUsers = (props) => {
 						setIsVisibleModal={setIsVisibleModal}
 						setModalTitle={setModalTitle}
 						steModalContent={steModalContent}
+						setReloadUsers={setReloadUsers}
 					/>
 				) : (
 					<UsersInactive usersInactive={usersInactive} />
@@ -60,6 +61,7 @@ function UsersActive(props) {
 		setIsVisibleModal,
 		setModalTitle,
 		steModalContent,
+		setReloadUsers,
 	} = props;
 
 	const editUser = (user) => {
@@ -69,7 +71,13 @@ function UsersActive(props) {
 				user.lastname ? user.lastname : '...'
 			}`
 		);
-		steModalContent(<EditUserForm user={user} />);
+		steModalContent(
+			<EditUserForm
+				user={user}
+				setIsVisibleModal={setIsVisibleModal}
+				setReloadUsers={setReloadUsers}
+			/>
+		);
 	};
 
 	return (
