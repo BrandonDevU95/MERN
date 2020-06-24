@@ -2,6 +2,7 @@ import Modal from '../../../Modal';
 import EditUserForm from '../EditUserForm';
 import React, { useState, useEffect } from 'react';
 import { getAccessTokenApi } from '../../../../API/auth';
+import AddUserForm from '../AddUserForm';
 import NoAvatar from '../../../../Assets/img/png/no-avatar.png';
 import {
 	getAvatarApi,
@@ -38,10 +39,10 @@ const ListUsers = (props) => {
 		setIsVisibleModal(true);
 		setModalTitle('Crear Usuario');
 		steModalContent(
-			<div className=''>
-				<h1>Formulario Nuevo Usuario</h1>
-				<h2>Admin</h2>
-			</div>
+			<AddUserForm
+				setIsVisibleModal={setIsVisibleModal}
+				setReloadUsers={setReloadUsers}
+			/>
 		);
 	};
 
