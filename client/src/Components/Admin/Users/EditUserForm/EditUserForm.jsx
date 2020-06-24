@@ -103,7 +103,7 @@ const EditUserForm = (props) => {
 		<div className='edit-user-form'>
 			<UploadAvatar avatar={avatar} setAvatar={setAvatar} />
 			<EditForm
-				user={user}
+				// user={user}
 				userData={userData}
 				setUserData={setUserData}
 				updateUser={updateUser}
@@ -157,7 +157,7 @@ function UploadAvatar(props) {
 }
 
 function EditForm(props) {
-	const { user, userData, setUserData, updateUser } = props;
+	const { userData, setUserData, updateUser } = props;
 	const { Option } = Select;
 
 	return (

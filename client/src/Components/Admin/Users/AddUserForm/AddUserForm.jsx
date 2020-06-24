@@ -10,8 +10,40 @@ const AddUserForm = (props) => {
 	const { setIsVisibleModal, setReloadUsers } = props;
 	const [userData, setUserData] = useState({});
 
-	const addUser = (event) => {
-		console.log('Creando Usuario');
+	const addUser = () => {
+		if (
+			!userData ||
+			!userData.lastname ||
+			!userData.role ||
+			!userData.email ||
+			!userData.password ||
+			!userData.repeatPassword
+		) {
+			notification['error']({
+				message: 'Todos los campos son obligatorios',
+			});
+		} else {
+			if (userData.password !== userData.repeatPassword) {
+				notification['error']({ message: 'Las contraseñas no coinciden' });
+			} else {
+				const accesToken = getAccessTokenApi();
+
+				signUpAdminApi(accesToken, userData)
+					.then((response) => {
+						notification['success']({
+							message: response,
+						});
+						setIsVisibleModal(false);
+						setReloadUsers(true);
+						setUserData({});
+					})
+					.catch((err) => {
+						notification['error']({
+							message: err.message,
+						});
+					});
+			}
+		}
 	};
 
 	return (
@@ -32,7 +64,7 @@ function AddForm(props) {
 	const { Option } = Select;
 
 	return (
-		<Form className='form-add' onSubmit={addUser}>
+		<Form className='form-add' onFinish={addUser}>
 			<Row gutter={24}>
 				<Col span={12}>
 					<Form.Item>
