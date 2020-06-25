@@ -1,3 +1,7 @@
 Video 115: 
 Error: El error es que no desactivaba los usuarios y se rompia la app en el fetch de la funcion activateUser, el error en consola era "objects are not valid as a react child (found: object with keys {message}). if you meant to render a collection of children, use an array instead."
 Solucion: Faltaba colocar .message en el result del fetch 
+
+Video 13:
+Error: El error es al mover los menus draggables para acomodar el orden, nos lanza un error de CORS, error en el fetch, y en el PUT (net::ERR_FAILED)
+Solucion: Estaba escrita mal la cabecera de Autenticacion en la API del Front, al parecer los errores de CORS estan relacionados con la cabecera de Autenticacion
