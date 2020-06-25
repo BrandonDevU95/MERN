@@ -54,7 +54,10 @@ const MenuWebList = (props) => {
 		setModalTitle('Creando Menu');
 		setModalContent(
 			<div>
-				<AddMenuWebForm />
+				<AddMenuWebForm
+					setIsVisibleModal={setIsVisibleModal}
+					setReloadMenuWeb={setReloadMenuWeb}
+				/>
 			</div>
 		);
 	};
