@@ -62,7 +62,7 @@ function MenuItem(props) {
 	return (
 		<List.Item
 			actions={[
-				<Switch defaultChecked={true} />,
+				<Switch defaultChecked={item.active} />,
 				<Button type='primary'>
 					<EditOutlined />
 				</Button>,
