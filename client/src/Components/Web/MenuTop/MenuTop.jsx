@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/img/png/muvalogo_clean.png';
 import { getMenuApi } from '../../../API/menu';
+import SocialLinks from '../SocialLinks';
 
 import './MenuTop.scss';
 
@@ -50,7 +51,7 @@ const MenuTop = () => {
 					</Menu.Item>
 				);
 			})}
-			<div className=''>Social Media...</div>
+			<SocialLinks />
 		</Menu>
 	);
 };
