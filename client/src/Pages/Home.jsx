@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react';
+import MainBanner from '../Components/Web/MainBanner';
 
 const Home = () => {
 	return (
-		<div>
-			<h1>Estamos en Home</h1>
-		</div>
-	)
-}
+		<Fragment>
+			<MainBanner />
+		</Fragment>
+	);
+};
 
-export default Home
+export default Home;

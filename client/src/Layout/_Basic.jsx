@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Layout, Row, Col } from 'antd';
 import MenuTop from '../Components/Web/MenuTop';
@@ -10,15 +10,17 @@ const _Basic = (props) => {
 	const { Footer } = Layout;
 
 	return (
-		<Row>
-			<Col lg={4} />
-			<Col lg={16}>
-				<MenuTop />
-				<LoadRoutes routes={routes} />
-				<Footer>Brandon Vargas</Footer>
-			</Col>
-			<Col lg={4} />
-		</Row>
+		<Fragment>
+			<Row>
+				<Col lg={4} />
+				<Col lg={16}>
+					<MenuTop />
+				</Col>
+				<Col lg={4} />
+			</Row>
+			<LoadRoutes routes={routes} />
+			<Footer>Brandon Vargas</Footer>
+		</Fragment>
 	);
 };
 
