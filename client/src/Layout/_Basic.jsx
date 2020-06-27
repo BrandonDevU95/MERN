@@ -1,23 +1,24 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
+import MenuTop from '../Components/Web/MenuTop';
 
 import './_Basic.scss';
 
 const _Basic = (props) => {
 	const { routes } = props;
-	const { Content, Footer } = Layout;
+	const { Footer } = Layout;
 
 	return (
-		<Layout>
-			<h2>Menu</h2>
-			<Layout>
-				<Content>
-					<LoadRoutes routes={routes} />
-				</Content>
+		<Row>
+			<Col lg={4} />
+			<Col lg={16}>
+				<MenuTop />
+				<LoadRoutes routes={routes} />
 				<Footer>Brandon Vargas</Footer>
-			</Layout>
-		</Layout>
+			</Col>
+			<Col lg={4} />
+		</Row>
 	);
 };
 
