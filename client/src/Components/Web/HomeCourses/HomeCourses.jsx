@@ -74,6 +74,11 @@ const HomeCourses = () => {
 				</Row>
 			</Col>
 			<Col lg={4} />
+			<Col lg={24} className='home-courses__more'>
+				<Link to='/courses'>
+					<Button>Ver mas</Button>
+				</Link>
+			</Col>
 		</Row>
 	);
 };
