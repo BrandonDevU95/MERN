@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import MyInfo from './MyInfo';
-
+import NavigationFooter from './NavigationFooter';
 import './Footer.scss';
 
 const Footer = () => {
@@ -16,7 +16,9 @@ const Footer = () => {
 						<Col md={8}>
 							<MyInfo />
 						</Col>
-						<Col md={8}>Navegacion</Col>
+						<Col md={8}>
+							<NavigationFooter />
+						</Col>
 						<Col md={8}>Newslatter</Col>
 					</Row>
 					<Row className='footer__copyright'>
