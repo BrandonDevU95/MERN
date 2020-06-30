@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import MainBanner from '../Components/Web/MainBanner';
 import HomeCourses from '../Components/Web/HomeCourses';
 import HowMyCoursesWork from '../Components/Web/HowMyCoursesWork';
+import ReviewCourses from '../Components/Web/ReviewCourses';
 
 const Home = () => {
 	return (
@@ -9,6 +10,7 @@ const Home = () => {
 			<MainBanner />
 			<HomeCourses />
 			<HowMyCoursesWork />
+			<ReviewCourses />
 		</Fragment>
 	);
 };
