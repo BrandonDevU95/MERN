@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Layout, Row, Col } from 'antd';
 import MenuTop from '../Components/Web/MenuTop';
+import Footer from '../Components/Web/Footer';
 
 import './_Basic.scss';
 
 const _Basic = (props) => {
 	const { routes } = props;
-	const { Footer } = Layout;
 
 	return (
 		<Fragment>
@@ -19,7 +19,7 @@ const _Basic = (props) => {
 				<Col lg={4} />
 			</Row>
 			<LoadRoutes routes={routes} />
-			<Footer>Brandon Vargas</Footer>
+			<Footer />
 		</Fragment>
 	);
 };
