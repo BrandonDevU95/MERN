@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { List, Button, Modal as ModalAntd, notification } from 'antd';
 import DragSortableList from 'react-drag-sortable';
 import Modal from '../../../Modal';
-import {} from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getCourseDataUdemyApi } from '../../../../API/courses';
 
 import './CoursesList.scss';
@@ -55,5 +55,43 @@ export default CoursesList;
 
 function Course(props) {
 	const { course } = props;
-	return <h1>Lorem ipsum dolor sit amet.</h1>;
+	const [courseData, setCourseData] = useState(null);
+
+	useEffect(() => {
+		getCourseDataUdemyApi(course.idCourse).then((response) => {
+			if (response.code !== 200) {
+				notification['error']({
+					message: `El curso ${course.idCourse} no se encontro`,
+				});
+			}
+			setCourseData(response.data);
+		});
+	}, [course]);
+
+	if (!courseData) {
+		return null;
+	}
+
+	return (
+		<List.Item
+			actions={[
+				<Button type='primary'>
+					<EditOutlined />
+				</Button>,
+				<Button type='danger'>
+					<DeleteOutlined />
+				</Button>,
+			]}
+		>
+			<img
+				src={courseData.image_480x270}
+				alt={courseData.title}
+				style={{ width: '100px', marginRight: '20px' }}
+			/>
+			<List.Item.Meta
+				title={`${course.title} | ID: ${course.idCourse}`}
+				description={courseData.headline}
+			/>
+		</List.Item>
+	);
 }
