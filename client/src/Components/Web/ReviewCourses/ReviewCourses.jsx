@@ -22,7 +22,54 @@ const ReviewCourses = () => {
 				<Col lg={16}>
 					<Row className='row-cards'>
 						<Col md={8}>
-							<CardReview />
+							<CardReview
+								name='Brennan'
+								subtitle='Alumno Udemy'
+								avatar={AvatarPersona}
+								review='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, quas?'
+							/>
+						</Col>
+						<Col md={8}>
+							<CardReview
+								name='Raven'
+								subtitle='Alumno Udemy'
+								avatar={AvatarPersona}
+								review='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, quas?'
+							/>
+						</Col>
+						<Col md={8}>
+							<CardReview
+								name='Jamaal'
+								subtitle='Alumno Udemy'
+								avatar={AvatarPersona}
+								review='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, quas?'
+							/>
+						</Col>
+					</Row>
+					<Row className='row-cards'>
+						<Col md={8}>
+							<CardReview
+								name='Camren'
+								subtitle='Alumno Udemy'
+								avatar={AvatarPersona}
+								review='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, quas?'
+							/>
+						</Col>
+						<Col md={8}>
+							<CardReview
+								name='Uriel'
+								subtitle='Alumno Udemy'
+								avatar={AvatarPersona}
+								review='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, quas?'
+							/>
+						</Col>
+						<Col md={8}>
+							<CardReview
+								name='Shaylee'
+								subtitle='Alumno Udemy'
+								avatar={AvatarPersona}
+								review='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, quas?'
+							/>
 						</Col>
 					</Row>
 				</Col>
