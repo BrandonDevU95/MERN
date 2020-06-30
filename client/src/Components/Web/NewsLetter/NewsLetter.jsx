@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { suscribeNewsletterApi } from '../../../API/newsletter';
 
 import './NewsLetter.scss';
 
 const NewsLetter = () => {
+	const [email, setEmail] = useState('');
 	const newsLetter = () => {
-		console.log('correo ok');
+		/* eslint-disable */
+		const emailValid = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		const resultValidation = emailValid.test(email);
+		if (!resultValidation) {
+			notification['error']({
+				message: 'Correo no valido',
+			});
+		} else {
+			suscribeNewsletterApi(email).then((response) => {
+				if (response.code !== 200) {
+					notification['error']({
+						message: response.message,
+					});
+				} else {
+					notification['success']({
+						message: response.message,
+					});
+					setEmail('');
+				}
+			});
+		}
 	};
 
 	return (
@@ -18,8 +40,8 @@ const NewsLetter = () => {
 						prefix={<UserOutlined />}
 						style={{ color: 'rgba(0,0,0,0.25)' }}
 						placeholder='Correo'
-						// value={}
-						// onChange={}
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 				</Form.Item>
 				<Form.Item>
