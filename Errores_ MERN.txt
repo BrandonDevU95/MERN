@@ -5,3 +5,7 @@ Solucion: Faltaba colocar .message en el result del fetch
 Video 13:
 Error: El error es al mover los menus draggables para acomodar el orden, nos lanza un error de CORS, error en el fetch, y en el PUT (net::ERR_FAILED)
 Solucion: Estaba escrita mal la cabecera de Autenticacion en la API del Front, al parecer los errores de CORS estan relacionados con la cabecera de Autenticacion
+
+Video 169:
+Error: Al mover los items de la lista no se pintaba la caja blanca del item y el cursos no cambiaba
+Solucion: Estaba ma escrita la clase .draggable en el SCSS 
