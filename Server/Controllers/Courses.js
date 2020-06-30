@@ -1,5 +1,4 @@
 const Course = require('../Models/Courses');
-const Courses = require('../Models/Courses');
 
 function addCourse(req, res) {
 	const body = req.body;
@@ -23,7 +22,7 @@ function addCourse(req, res) {
 }
 
 function getCourses(req, res) {
-	Courses.find()
+	Course.find()
 		.sort({ order: 'asc' })
 		.exec((err, coursesStored) => {
 			if (err) {
@@ -41,7 +40,23 @@ function getCourses(req, res) {
 		});
 }
 
+function deleteCourse(req, res) {
+	const { id } = req.params;
+	Course.findByIdAndRemove(id, (err, courseDelete) => {
+		if (err) {
+			res.status(500).send({ code: 500, message: 'Error del Servidor' });
+		} else {
+			if (!courseDelete) {
+				res.status(404).send({ code: 404, message: 'Curso no encontrado' });
+			} else {
+				res.status(200).send({ code: 200, message: 'Curso eliminado' });
+			}
+		}
+	});
+}
+
 module.exports = {
 	addCourse,
 	getCourses,
+	deleteCourse,
 };
