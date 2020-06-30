@@ -5,6 +5,7 @@ const CourseSchema = Schema({
 	idCourse: {
 		type: Number,
 		unique: true,
+		require: true,
 	},
 	link: String,
 	coupon: String,
