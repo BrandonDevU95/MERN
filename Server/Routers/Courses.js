@@ -12,5 +12,10 @@ api.delete(
 	[md_auth.ensureAuth],
 	CourseController.deleteCourse
 );
+api.put(
+	'/update-course/:id',
+	[md_auth.ensureAuth],
+	CourseController.updateCourse
+);
 
 module.exports = api;
