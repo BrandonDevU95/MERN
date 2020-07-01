@@ -8,6 +8,7 @@ import { getAccessTokenApi } from '../../../../API/auth';
 import {
 	getCourseDataUdemyApi,
 	deleteCourseApi,
+	updateCourseApi,
 } from '../../../../API/courses';
 
 import './CoursesList.scss';
@@ -39,7 +40,13 @@ const CoursesList = (props) => {
 	}, [courses]);
 
 	const onSort = (sortedList, dropEvent) => {
-		console.log(sortedList);
+		const accesToken = getAccessTokenApi();
+
+		sortedList.forEach((item) => {
+			const { _id } = item.content.props.course;
+			const order = item.rank;
+			updateCourseApi(accesToken, _id, { order });
+		});
 	};
 
 	const addCourseModal = () => {
