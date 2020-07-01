@@ -25,6 +25,7 @@ export default CoursesList;
 function Course(props) {
 	const { course } = props;
 	const [courseInfo, setCourseInfo] = useState({});
+	const { Meta } = Card;
 
 	useEffect(() => {
 		getCourseDataUdemyApi(course.idCourse)
@@ -44,5 +45,24 @@ function Course(props) {
 			});
 	}, [course]);
 
-	return <p>{courseInfo.title}</p>;
+	return (
+		<a href='#' target='_blank' rel='noopener noreferrer'>
+			<Card
+				cover={
+					<img src={courseInfo.image_480x270} alt={courseInfo.title} />
+				}
+			>
+				<Meta title={courseInfo.title} description={courseInfo.headline} />
+				<Button>Entrar en el Curso</Button>
+				<div className='courses-list__course-footer'>
+					<span>
+						{course.price ? `$${course.price}` : courseInfo.price}
+					</span>
+					<div>
+						<Rate disabled defaultValue={5} />
+					</div>
+				</div>
+			</Card>
+		</a>
+	);
 }

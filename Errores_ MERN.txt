@@ -13,3 +13,7 @@ Solucion: Estaba ma escrita la clase .draggable en el SCSS
 Video 171
 Error: Al presionar el boton de Nuevo curso aparecia la ventana modal, pero al dar un click en otro lado para cerrarla lanzaba un error donde decia que setIsVisible() no era una funcion
 Solucion: Anteriormente se habia utilizado el mismo componente modal en la parte de menu revise los archivos y parecian iguales copie algunas clases que parecian ser iguales guarde el documento y funciono correctamente,
+
+Video 178
+Error: El error aparece en el componenete CoursesList en el apartado de render de los cursos en el .map y el error es 'Expected an assignment or function call and instead saw an expression no-unused-expressions' en la linea 14:6
+Solucion: El error fue que al abrir la funcion de map despues de la flecha se uso {} lo cual estaba mal, ya que debia usarse () esto probocaba el error en el return del componente
