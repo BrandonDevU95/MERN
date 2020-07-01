@@ -25,7 +25,13 @@ const CoursesList = (props) => {
 		const listCourseArray = [];
 		courses.forEach((course) => {
 			listCourseArray.push({
-				content: <Course course={course} deleteCourse={deleteCourse} />,
+				content: (
+					<Course
+						course={course}
+						deleteCourse={deleteCourse}
+						editCourseModal={editCourseModal}
+					/>
+				),
 			});
 		});
 		setListCourses(listCourseArray);
@@ -43,6 +49,18 @@ const CoursesList = (props) => {
 			<AddEditCourseForm
 				setIsVisibleModal={setIsVisibleModal}
 				setReloadCourses={setReloadCourses}
+			/>
+		);
+	};
+
+	const editCourseModal = (course) => {
+		setIsVisibleModal(true);
+		setModalTitle('Actializar Curso');
+		setModalContent(
+			<AddEditCourseForm
+				setIsVisibleModal={setIsVisibleModal}
+				setReloadCourses={setReloadCourses}
+				course={course}
 			/>
 		);
 	};
@@ -107,7 +125,7 @@ const CoursesList = (props) => {
 export default CoursesList;
 
 function Course(props) {
-	const { course, deleteCourse } = props;
+	const { course, deleteCourse, editCourseModal } = props;
 	const [courseData, setCourseData] = useState(null);
 
 	useEffect(() => {
@@ -129,7 +147,7 @@ function Course(props) {
 		<List.Item
 			actions={[
 				<Button type='primary'>
-					<EditOutlined />
+					<EditOutlined onClick={() => editCourseModal(course)} />
 				</Button>,
 				<Button type='danger' onClick={() => deleteCourse(course)}>
 					<DeleteOutlined />

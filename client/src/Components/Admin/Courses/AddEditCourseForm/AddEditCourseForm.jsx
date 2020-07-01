@@ -7,7 +7,7 @@ import {
 	LinkOutlined,
 } from '@ant-design/icons';
 import { getAccessTokenApi } from '../../../../API/auth';
-import { addCourseApi } from '../../../../API/courses';
+import { addCourseApi, updateCourseApi } from '../../../../API/courses';
 
 import './AddEditCourseForm.scss';
 
@@ -15,7 +15,11 @@ const AddEditCourseForm = (props) => {
 	const { setIsVisibleModal, setReloadCourses, course } = props;
 	const [courseData, setCourseData] = useState({});
 
-	const addCourse = (e) => {
+	useEffect(() => {
+		course && setCourseData(course);
+	}, [course]);
+
+	const addCourse = () => {
 		if (!courseData.idCourse) {
 			notification['error']({
 				message: 'El ID es obligatorio',
@@ -42,8 +46,25 @@ const AddEditCourseForm = (props) => {
 		}
 	};
 
-	const updateCourse = (e) => {
-		console.log('Actualizando Curso');
+	const updateCourse = () => {
+		const accesToken = getAccessTokenApi();
+
+		updateCourseApi(accesToken, course._id, courseData)
+			.then((response) => {
+				const typeNotification =
+					response.code === 200 ? 'success' : 'warning';
+				notification[typeNotification]({
+					message: response.message,
+				});
+				setIsVisibleModal(false);
+				setReloadCourses(true);
+				setCourseData({});
+			})
+			.catch(() => {
+				notification['error']({
+					message: 'Error del Servidor',
+				});
+			});
 	};
 
 	return (
