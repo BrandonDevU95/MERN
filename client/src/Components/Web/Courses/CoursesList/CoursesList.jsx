@@ -25,6 +25,7 @@ export default CoursesList;
 function Course(props) {
 	const { course } = props;
 	const [courseInfo, setCourseInfo] = useState({});
+	const [urlCourse, setUrlCourse] = useState('');
 	const { Meta } = Card;
 
 	useEffect(() => {
@@ -36,6 +37,7 @@ function Course(props) {
 					});
 				} else {
 					setCourseInfo(response.data);
+					mounUrl(response.data.url);
 				}
 			})
 			.catch(() => {
@@ -45,8 +47,19 @@ function Course(props) {
 			});
 	}, [course]);
 
+	const mounUrl = (url) => {
+		if (!course.link) {
+			const baseUrl = `https://www.udemy.com${url}`;
+			const finalUrl =
+				baseUrl + (course.coupon ? `?couponCode=${course.coupon}` : '');
+			setUrlCourse(finalUrl);
+		} else {
+			setUrlCourse(course.link);
+		}
+	};
+
 	return (
-		<a href='#' target='_blank' rel='noopener noreferrer'>
+		<a href={urlCourse} target='_blank' rel='noopener noreferrer'>
 			<Card
 				cover={
 					<img src={courseInfo.image_480x270} alt={courseInfo.title} />
