@@ -3,7 +3,11 @@ import { List, Button, Modal as ModalAntd, notification } from 'antd';
 import DragSortableList from 'react-drag-sortable';
 import Modal from '../../../Modal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { getCourseDataUdemyApi } from '../../../../API/courses';
+import { getAccessTokenApi } from '../../../../API/auth';
+import {
+	getCourseDataUdemyApi,
+	deleteCourseApi,
+} from '../../../../API/courses';
 
 import './CoursesList.scss';
 
@@ -20,7 +24,7 @@ const CoursesList = (props) => {
 		const listCourseArray = [];
 		courses.forEach((course) => {
 			listCourseArray.push({
-				content: <Course course={course} />,
+				content: <Course course={course} deleteCourse={deleteCourse} />,
 			});
 		});
 		setListCourses(listCourseArray);
@@ -28,6 +32,33 @@ const CoursesList = (props) => {
 
 	const onSort = (sortedList, dropEvent) => {
 		console.log(sortedList);
+	};
+
+	const deleteCourse = (course) => {
+		const accesToken = getAccessTokenApi();
+		confirm({
+			title: 'Eliminar Curso',
+			content: `¿Estas seguro de eliminar ${course.idCourse}`,
+			okText: 'Eliminar',
+			okType: 'ganger',
+			cancelText: 'Cancelar',
+			onOk() {
+				deleteCourseApi(accesToken, course._id)
+					.then((response) => {
+						const typeNotification =
+							response.code === 200 ? 'success' : 'warning';
+						notification[typeNotification]({
+							message: response.message,
+						});
+						setReloadCourses(true);
+					})
+					.catch(() => {
+						notification['error']({
+							message: 'Error del servidor',
+						});
+					});
+			},
+		});
 	};
 
 	return (
@@ -54,7 +85,7 @@ const CoursesList = (props) => {
 export default CoursesList;
 
 function Course(props) {
-	const { course } = props;
+	const { course, deleteCourse } = props;
 	const [courseData, setCourseData] = useState(null);
 
 	useEffect(() => {
@@ -78,7 +109,7 @@ function Course(props) {
 				<Button type='primary'>
 					<EditOutlined />
 				</Button>,
-				<Button type='danger'>
+				<Button type='danger' onClick={() => deleteCourse(course)}>
 					<DeleteOutlined />
 				</Button>,
 			]}
