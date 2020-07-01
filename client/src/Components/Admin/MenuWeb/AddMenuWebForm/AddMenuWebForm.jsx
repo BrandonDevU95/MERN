@@ -10,7 +10,7 @@ const AddMenuWebForm = (props) => {
 	const { setIsVisibleModal, setReloadMenuWeb } = props;
 	const [menuWebData, setMenuWebData] = useState({});
 
-	const addMenu = (evente) => {
+	const addMenu = () => {
 		let finalData = {
 			title: menuWebData.title,
 			url:
