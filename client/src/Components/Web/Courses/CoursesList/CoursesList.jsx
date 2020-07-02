@@ -61,6 +61,7 @@ function Course(props) {
 	return (
 		<a href={urlCourse} target='_blank' rel='noopener noreferrer'>
 			<Card
+				className='courses-list__course-card'
 				cover={
 					<img src={courseInfo.image_480x270} alt={courseInfo.title} />
 				}

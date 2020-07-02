@@ -34,6 +34,12 @@
 			text-transform: uppercase;
 		}
 
+		&-card {
+			.ant-card-body {
+				min-height: 215px;
+			}
+		}
+
 		&-footer {
 			display: flex;
 			align-items: center;
