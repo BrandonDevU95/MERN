@@ -6,6 +6,7 @@ import {
 	UserOutlined,
 	MenuOutlined,
 	BookOutlined,
+	MessageOutlined,
 } from '@ant-design/icons';
 
 import './MenuSider.scss';
@@ -38,6 +39,12 @@ const MenuSider = (props) => {
 				<Menu.Item key='/admin/courses'>
 					<Link to={'/admin/courses'}>
 						<BookOutlined />
+						<span className='nav-text'>Courses</span>
+					</Link>
+				</Menu.Item>
+				<Menu.Item key='/admin/blog'>
+					<Link to={'/admin/blog'}>
+						<MessageOutlined />
 						<span className='nav-text'>Courses</span>
 					</Link>
 				</Menu.Item>
