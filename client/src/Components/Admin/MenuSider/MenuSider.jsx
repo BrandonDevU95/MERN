@@ -45,7 +45,7 @@ const MenuSider = (props) => {
 				<Menu.Item key='/admin/blog'>
 					<Link to={'/admin/blog'}>
 						<MessageOutlined />
-						<span className='nav-text'>Courses</span>
+						<span className='nav-text'>Blog</span>
 					</Link>
 				</Menu.Item>
 			</Menu>
