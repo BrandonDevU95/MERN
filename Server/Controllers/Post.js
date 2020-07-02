@@ -1,4 +1,5 @@
 const Post = require('../Models/Post');
+const { options } = require('../Routers/Post');
 
 function addPost(req, res) {
 	const body = req.body;
@@ -20,6 +21,31 @@ function addPost(req, res) {
 	});
 }
 
+function getPost(req, res) {
+	const { page = 1, limit = 10 } = req.query;
+	const options = {
+		page,
+		limit: parseInt(limit),
+		sort: { date: 'desc' },
+	};
+
+	Post.paginate({}, options, (err, postStored) => {
+		if (err) {
+			res.status(500).send({ code: 500, message: 'Error del Servidor' });
+		} else {
+			if (!postStored) {
+				res.status(404).send({
+					code: 404,
+					message: 'No se encontro ningun post',
+				});
+			} else {
+				res.status(200).send({ code: 200, posts: postStored });
+			}
+		}
+	});
+}
+
 module.exports = {
 	addPost,
+	getPost,
 };
