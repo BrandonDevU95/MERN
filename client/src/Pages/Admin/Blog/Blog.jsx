@@ -45,7 +45,7 @@ const Blog = (props) => {
 			<div className='blog__add-post'>
 				<Button type='primary'>Nuevo Post</Button>
 			</div>
-			<PostList posts={posts} />
+			<PostList posts={posts} setReloadPosts={setReloadPosts} />
 			<Pagination posts={posts} location={location} history={history} />
 
 			<Modal
