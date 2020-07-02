@@ -4,6 +4,7 @@ import { Button, notification } from 'antd';
 import Modal from '../../../Components/Modal';
 import PostList from '../../../Components/Admin/Blog/PostList';
 import queryString from 'query-string';
+import Pagination from '../../../Components/Pagination';
 import { getPostsApi } from '../../../API/Post';
 
 import './Blog.scss';
@@ -45,7 +46,7 @@ const Blog = (props) => {
 				<Button type='primary'>Nuevo Post</Button>
 			</div>
 			<PostList posts={posts} />
-			<h2>Paginacion...</h2>
+			<Pagination posts={posts} location={location} history={history} />
 
 			<Modal
 				title={modalTitle}
