@@ -22,24 +22,24 @@ function addPost(req, res) {
 }
 
 function getPosts(req, res) {
-	const { page = 1, limit = 10 } = req.query;
+	const { limit = 10, page = 1 } = req.query;
 	const options = {
 		page,
 		limit: parseInt(limit),
 		sort: { date: 'desc' },
 	};
 
-	Post.paginate({}, options, (err, postStored) => {
+	Post.paginate({}, options, (err, postsStored) => {
 		if (err) {
 			res.status(500).send({ code: 500, message: 'Error del Servidor' });
 		} else {
-			if (!postStored) {
+			if (!postsStored) {
 				res.status(404).send({
 					code: 404,
 					message: 'No se encontro ningun post',
 				});
 			} else {
-				res.status(200).send({ code: 200, posts: postStored });
+				res.status(200).send({ code: 200, posts: postsStored });
 			}
 		}
 	});

@@ -1,13 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, notification } from 'antd';
 import Modal from '../../../Components/Modal';
+import queryString from 'query-string';
+import { getPostsApi } from '../../../API/Post';
 
 import './Blog.scss';
 
-const Blog = () => {
+const Blog = (props) => {
+	const { location, history } = props;
 	const [modalTitle, setModaltitle] = useState('');
 	const [isVisibleModal, setIsVisibleModal] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
+	const { page = 1 } = queryString.parse(location.search);
+
+	useEffect(() => {
+		getPostsApi(12, page)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch(() => {
+				console.log('Error');
+			});
+	}, [page]);
 
 	return (
 		<div className='blog'>
@@ -27,4 +42,4 @@ const Blog = () => {
 	);
 };
 
-export default Blog;
+export default withRouter(Blog);
