@@ -65,8 +65,28 @@ function updatePost(req, res) {
 	});
 }
 
+function deletePost(req, res) {
+	const { id } = req.params;
+
+	Post.findByIdAndRemove(id, (err, postDeleted) => {
+		if (err) {
+			res.status(500).send({ code: 500, message: 'Erro del Seridor' });
+		} else {
+			if (!postDeleted) {
+				res.status(404).send({
+					code: 404,
+					message: 'No se encontro el post',
+				});
+			} else {
+				res.status(200).send({ code: 200, message: 'Post Eliminado' });
+			}
+		}
+	});
+}
+
 module.exports = {
 	addPost,
 	getPost,
 	updatePost,
+	deletePost,
 };
