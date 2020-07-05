@@ -21,9 +21,39 @@ const AddEditPostForm = (props) => {
 	}, [post]);
 
 	const processPost = () => {
-		if (!post) {
+		const { title, url, description, date } = postData;
+
+		if ((!title, !url, !description, !date)) {
+			notification['error']({
+				message: 'Todos los campos son obligatorios',
+			});
 		} else {
+			if (!post) {
+				addPost();
+			} else {
+			}
 		}
+	};
+
+	const addPost = () => {
+		const accesToken = getAccessTokenApi();
+
+		addPostApi(accesToken, postData)
+			.then((response) => {
+				const typeNotification =
+					response.code === 200 ? 'success' : 'error';
+				notification[typeNotification]({
+					message: response.message,
+				});
+				setIsVisibleModal(false);
+				setReloadPosts(true);
+				setPostData({});
+			})
+			.catch(() => {
+				notification['error']({
+					message: 'Error del Servidor',
+				});
+			});
 	};
 
 	return (
@@ -80,13 +110,19 @@ function AddEditForm(props) {
 						placeholder='Fecha de publicacion'
 						value={postData.date && moment(postData.date)}
 						onChange={(e, value) =>
-							setPostData({ ...postData, date: value })
+							setPostData({
+								...postData,
+								date: moment(
+									value,
+									'DD/MM/YYYY HH:mm:ss'
+								).toISOString(),
+							})
 						}
 					/>
 				</Col>
 			</Row>
 			<Editor
-				value=''
+				value={postData.description ? postData.description : ''}
 				init={{
 					height: 400,
 					menubar: true,
@@ -100,7 +136,9 @@ function AddEditForm(props) {
             alignleft aligncenter alignright alignjustify | \
             bullist numlist outdent indent | removeformat | help',
 				}}
-				// onEditorChange={this.handleEditorChange}
+				onBlur={(e) =>
+					setPostData({ ...postData, description: e.target.getContent() })
+				}
 			/>
 			<Button type='primary' htmlType='submit' className='btn-submit'>
 				{post ? 'Actualizar Post' : 'Craer Post'}
@@ -110,6 +148,6 @@ function AddEditForm(props) {
 }
 
 function transformTextToUrl(text) {
-	const url = text.replace('', '-');
+	const url = text.replace(' ', '-');
 	return url.toLowerCase();
 }
