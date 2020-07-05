@@ -19,7 +19,7 @@ export function deletePostApi(token, id) {
 	const url = `${basePath}/${apiVersion}/delete-post/${id}`;
 
 	const params = {
-		method: 'DELETED',
+		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: token,
