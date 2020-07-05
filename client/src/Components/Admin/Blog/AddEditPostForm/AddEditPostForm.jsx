@@ -3,6 +3,7 @@ import { Row, Col, Form, Input, Button, DatePicker, notification } from 'antd';
 import { FontSizeOutlined, LinkOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { getAccessTokenApi } from '../../../../API/auth';
+import { addPostApi } from '../../../../API/Post';
 import { Editor } from '@tinymce/tinymce-react';
 
 import './AddEditPostForm.scss';
@@ -19,12 +20,19 @@ const AddEditPostForm = (props) => {
 		}
 	}, [post]);
 
+	const processPost = () => {
+		if (!post) {
+		} else {
+		}
+	};
+
 	return (
 		<div className='add-edit-post-form'>
 			<AddEditForm
 				postData={postData}
 				setPostData={setPostData}
 				post={post}
+				processPost={processPost}
 			/>
 		</div>
 	);
@@ -33,25 +41,36 @@ const AddEditPostForm = (props) => {
 export default AddEditPostForm;
 
 function AddEditForm(props) {
-	const { postData, setPostData, post } = props;
+	const { postData, setPostData, post, processPost } = props;
 
 	return (
-		<Form className='add-edit-post-form' layout='inline'>
+		<Form
+			className='add-edit-post-form'
+			layout='inline'
+			onFinish={processPost}
+		>
 			<Row gutter={24}>
 				<Col span={8}>
 					<Input
 						prefix={<FontSizeOutlined />}
 						placeholder='Titulo'
-						// value={}
-						// onChange={}
+						value={postData.title}
+						onChange={(e) =>
+							setPostData({ ...postData, title: e.target.value })
+						}
 					/>
 				</Col>
 				<Col span={8}>
 					<Input
 						prefix={<LinkOutlined />}
 						placeholder='Titulo'
-						// value={}
-						// onChange={}
+						value={postData.url}
+						onChange={(e) =>
+							setPostData({
+								...postData,
+								url: transformTextToUrl(e.target.value),
+							})
+						}
 					/>
 				</Col>
 				<Col span={8}>
@@ -59,6 +78,10 @@ function AddEditForm(props) {
 						style={{ width: '100%' }}
 						format='DD/MM/YYYY HH:mm:ss'
 						placeholder='Fecha de publicacion'
+						value={postData.date && moment(postData.date)}
+						onChange={(e, value) =>
+							setPostData({ ...postData, date: value })
+						}
 					/>
 				</Col>
 			</Row>
@@ -84,4 +107,9 @@ function AddEditForm(props) {
 			</Button>
 		</Form>
 	);
+}
+
+function transformTextToUrl(text) {
+	const url = text.replace('', '-');
+	return url.toLowerCase();
 }
