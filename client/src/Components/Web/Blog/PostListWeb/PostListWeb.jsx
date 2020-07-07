@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Spin, List, notification } from 'antd';
+import { Spin, List, notification, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import queryString from 'query-string';
@@ -32,11 +32,41 @@ const PostListWeb = (props) => {
 			});
 	}, [page]);
 
+	if (!posts) {
+		return (
+			<Spin tip='Cargando' style={{ width: '100%', padding: '200px 0px' }} />
+		);
+	}
+
 	return (
-		<div>
-			<h1>Lorem ipsum dolor sit.</h1>
+		<div className='post-list-web'>
+			<h1>Blog</h1>
+			<List
+				dataSource={posts.docs}
+				renderItem={(post) => <Post post={post} />}
+			/>
+			<Pagination posts={posts} location={location} history={history} />
 		</div>
 	);
 };
 
 export default PostListWeb;
+
+function Post(props) {
+	const { post } = props;
+	const day = moment(post.date).format('DD');
+	const month = moment(post.date).format('MMMM');
+	return (
+		<List.Item className='post'>
+			<Row>
+				<div className='post__date'>
+					<span>{day}</span>
+					<span>{month}</span>
+				</div>
+				<Link to={`blog/${post.url}`}>
+					<List.Item.Meta title={post.title} />
+				</Link>
+			</Row>
+		</List.Item>
+	);
+}
