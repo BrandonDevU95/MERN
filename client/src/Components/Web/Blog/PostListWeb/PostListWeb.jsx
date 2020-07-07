@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Spin, List, notification, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import queryString from 'query-string';
 import Pagination from '../../../Pagination';
 import { getPostsApi } from '../../../../API/Post';
+import { Helmet } from 'react-helmet';
 import 'moment/locale/es';
 
 import './PostListWeb.scss';
@@ -57,16 +58,21 @@ function Post(props) {
 	const day = moment(post.date).format('DD');
 	const month = moment(post.date).format('MMMM');
 	return (
-		<List.Item className='post'>
-			<Row>
-				<div className='post__date'>
-					<span>{day}</span>
-					<span>{month}</span>
-				</div>
-				<Link to={`blog/${post.url}`}>
-					<List.Item.Meta title={post.title} />
-				</Link>
-			</Row>
-		</List.Item>
+		<Fragment>
+			<Helmet>
+				<title>MUVA WEB DESIGN | Blog</title>
+			</Helmet>
+			<List.Item className='post'>
+				<Row>
+					<div className='post__date'>
+						<span>{day}</span>
+						<span>{month}</span>
+					</div>
+					<Link to={`blog/${post.url}`}>
+						<List.Item.Meta title={post.title} />
+					</Link>
+				</Row>
+			</List.Item>
+		</Fragment>
 	);
 }

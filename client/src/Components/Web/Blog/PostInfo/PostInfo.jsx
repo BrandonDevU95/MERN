@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Spin, notification } from 'antd';
 import moment from 'moment';
 import { getPostApi } from '../../../../API/Post';
+import { Helmet } from 'react-helmet';
 import 'moment/locale/es';
 
 import './PostInfo.scss';
@@ -35,16 +36,21 @@ const PostInfo = (props) => {
 	}
 
 	return (
-		<div className='post-info'>
-			<h1 className='post-info__title'>{postInfo.title}</h1>
-			<div className='post-info__creation-date'>
-				{moment(postInfo.date).local('es').format('LL')}
+		<Fragment>
+			<Helmet>
+				<title>MUVA WEB DESIGN | {postInfo.title}</title>
+			</Helmet>
+			<div className='post-info'>
+				<h1 className='post-info__title'>{postInfo.title}</h1>
+				<div className='post-info__creation-date'>
+					{moment(postInfo.date).local('es').format('LL')}
+				</div>
+				<div
+					className='post-info__description'
+					dangerouslySetInnerHTML={{ __html: postInfo.description }}
+				></div>
 			</div>
-			<div
-				className='post-info__description'
-				dangerouslySetInnerHTML={{ __html: postInfo.description }}
-			></div>
-		</div>
+		</Fragment>
 	);
 };
 

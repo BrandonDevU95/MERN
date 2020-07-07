@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { Fragment } from 'react';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
-   return (
-      <div>
-         <h1>Estamos en Contact</h1>
-      </div>
-   )
-}
+	return (
+		<Fragment>
+			<Helmet>
+				<title>MUVA WEB DESIGN | Contacto</title>
+			</Helmet>
+			<h1>Estamos en Contact</h1>
+		</Fragment>
+	);
+};
 
-export default Contact
+export default Contact;

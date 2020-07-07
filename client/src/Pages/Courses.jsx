@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { getCoursesApi } from '../API/courses';
 import PresentationCourses from '../Components/Web/Courses/PresentationCourses';
 import CoursesList from '../Components/Web/Courses/CoursesList';
+import { Helmet } from 'react-helmet';
 import { Row, Col, Spin, notification } from 'antd';
 
 const Courses = () => {
@@ -26,25 +27,30 @@ const Courses = () => {
 	}, []);
 
 	return (
-		<Row>
-			<Col md={4} />
-			<Col md={16}>
-				<PresentationCourses />
-				{!courses ? (
-					<Spin
-						tip='Cargando Cursos'
-						style={{
-							textAlign: 'center',
-							width: '100%',
-							padding: '20px',
-						}}
-					/>
-				) : (
-					<CoursesList courses={courses} />
-				)}
-			</Col>
-			<Col md={4} />
-		</Row>
+		<Fragment>
+			<Helmet>
+				<title>MUVA WEB DESIGN | Cursos</title>
+			</Helmet>
+			<Row>
+				<Col md={4} />
+				<Col md={16}>
+					<PresentationCourses />
+					{!courses ? (
+						<Spin
+							tip='Cargando Cursos'
+							style={{
+								textAlign: 'center',
+								width: '100%',
+								padding: '20px',
+							}}
+						/>
+					) : (
+						<CoursesList courses={courses} />
+					)}
+				</Col>
+				<Col md={4} />
+			</Row>
+		</Fragment>
 	);
 };
 
