@@ -3,7 +3,7 @@ import { Row, Col, Form, Input, Button, DatePicker, notification } from 'antd';
 import { FontSizeOutlined, LinkOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { getAccessTokenApi } from '../../../../API/auth';
-import { addPostApi } from '../../../../API/Post';
+import { addPostApi, updatePostApi } from '../../../../API/Post';
 import { Editor } from '@tinymce/tinymce-react';
 
 import './AddEditPostForm.scss';
@@ -31,6 +31,7 @@ const AddEditPostForm = (props) => {
 			if (!post) {
 				addPost();
 			} else {
+				updatePost();
 			}
 		}
 	};
@@ -39,6 +40,27 @@ const AddEditPostForm = (props) => {
 		const accesToken = getAccessTokenApi();
 
 		addPostApi(accesToken, postData)
+			.then((response) => {
+				const typeNotification =
+					response.code === 200 ? 'success' : 'error';
+				notification[typeNotification]({
+					message: response.message,
+				});
+				setIsVisibleModal(false);
+				setReloadPosts(true);
+				setPostData({});
+			})
+			.catch(() => {
+				notification['error']({
+					message: 'Error del Servidor',
+				});
+			});
+	};
+
+	const updatePost = () => {
+		const token = getAccessTokenApi();
+
+		updatePostApi(token, post._id, postData)
 			.then((response) => {
 				const typeNotification =
 					response.code === 200 ? 'success' : 'error';
