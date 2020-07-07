@@ -30,6 +30,11 @@ const Courses = () => {
 		<Fragment>
 			<Helmet>
 				<title>MUVA WEB DESIGN | Cursos</title>
+				<meta
+					name='description'
+					content='Cursos | Web sobre programacion Lorem ipsum dolor sit amet.'
+					data-react-helmet='true'
+				/>
 			</Helmet>
 			<Row>
 				<Col md={4} />

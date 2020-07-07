@@ -10,6 +10,11 @@ const Home = () => {
 		<Fragment>
 			<Helmet>
 				<title>MUVA WEB DESIGN</title>
+				<meta
+					name='description'
+					content='Home | Web sobre programacion'
+					data-react-helmet='true'
+				/>
 			</Helmet>
 			<MainBanner />
 			<HomeCourses />
